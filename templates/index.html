@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket Chat</title>
+    <script type="text/javascript">
+        var ws = new WebSocket("ws://" + window.location.host + "/ws");
+
+        ws.onmessage = function(event) {
+            var message = JSON.parse(event.data);
+            if (message.hasOwnProperty("reset")) return;
+            var messageList = document.getElementById("message-list");
+            var listItem = document.createElement("li");
+            listItem.innerText = message.id + ": " + message.text;
+            messageList.appendChild(listItem);
+        };
+
+        function sendMessage() {
+            var messageInput = document.getElementById("message-input");
+            var message = messageInput.value;
+            ws.send(JSON.stringify({"message": message}));
+            messageInput.value = "";
+        }
+    </script>
+</head>
+<body>
+    <h1>WebSocket Chat</h1>
+    <form onsubmit="event.preventDefault(); sendMessage();">
+        <input id="message-input" type="text" />
+        <button type="submit">Send</button>
+    </form>
+    <ul id="message-list"></ul>
+</body>
+</html>

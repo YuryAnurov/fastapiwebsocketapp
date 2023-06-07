@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+jinja2
+starlette
+websockets
+pytest
+pytest-asyncio
+httpx
