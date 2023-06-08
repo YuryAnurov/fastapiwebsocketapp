@@ -13,7 +13,7 @@ async def index(request: Request):
 
 
 @app.websocket("/ws")
-async def websocket_route(websocket: WebSocket):
+async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
     counter = 1
     try:
